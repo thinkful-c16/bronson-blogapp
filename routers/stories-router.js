@@ -30,7 +30,7 @@ router.get('/stories/:id', (req, res, next) => {
   knex('stories')
     .select('id', 'title', 'content')
     .where('id', idInput)
-    .then(([results]) => {
+    .then(([result]) => {
       res.status(200).json(result);
     });
 });
@@ -38,8 +38,14 @@ router.get('/stories/:id', (req, res, next) => {
 /* ========== POST/CREATE ITEM ========== */
 router.post('/stories', (req, res) => {
   const contentInput = req.body.content;
-  const titleInput = 
-};
+  const titleInput = req.body.title;
+  knex('stories')
+    .insert({title: titleInput, content: contentInput})
+    .then(results => res.status(201).json(results));
+});
+
+
+// router.post('/stories', (req, res) => {
 //   const {title, content} = req.body;
   
 //   /***** Never Trust Users! *****/
@@ -55,12 +61,14 @@ router.post('/stories', (req, res) => {
 
 /* ========== PUT/UPDATE A SINGLE ITEM ========== */
 router.put('/stories/:id', (req, res) => {
-  const {titleInput, contentInput} = req.body;  
-  const idInput = parseInt(req.params.id);
+  const idInput = pareseInt(req.params.id);
+  const titleInput = req.body.title;
+  const contentInput = req.body.content;
   knex('stories')
     .where('id', idInput)
-    .update('title, titleInput'
-      .update('content', contentInput));
+    .update('title', titleInput)
+    .update('content', contentInput)
+    .then(results => res.status(202).json(results));
 });
 
 
@@ -77,13 +85,19 @@ router.put('/stories/:id', (req, res) => {
 // });
 
 /* ========== DELETE/REMOVE A SINGLE ITEM ========== */
-router.delete('/stories/:id', (req, res) => {
-  const id = Number(req.params.id);
-  const index = data.findIndex((obj) => obj.id === id);
-  data.splice(index, 1);
-  res.status(204).end();
+router.delete('/stories/id:', (req, res) => {
+  const idInput = Number(req.params.id);
+  knex('stories')
+    .where('id', idInput)
+    .del()
+    .then(results => {
+      if(results) {
+        res.sendStatus(204);
+      }
+    });
 });
 
+// Original code using dummy-data:
 // router.delete('/stories/:id', (req, res) => {
 //   const id = Number(req.params.id);
 //   const index = data.findIndex((obj) => obj.id === id);
