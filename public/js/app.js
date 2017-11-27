@@ -127,7 +127,7 @@ const handleDetails = function (event) {
 
       store.view = 'detail';
       renderPage(store);
-
+      
     }).catch(err => {
       store.error = err;
     });

@@ -61,7 +61,7 @@ router.post('/stories', (req, res) => {
 
 /* ========== PUT/UPDATE A SINGLE ITEM ========== */
 router.put('/stories/:id', (req, res) => {
-  const idInput = pareseInt(req.params.id);
+  const idInput = parseInt(req.params.id);
   const titleInput = req.body.title;
   const contentInput = req.body.content;
   knex('stories')
