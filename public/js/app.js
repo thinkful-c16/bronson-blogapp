@@ -16,10 +16,10 @@ const renderPage = function (store) {
 const renderResults = function (store) {
   const listItems = store.list.map((item) => {
     return `<li id="${item.id}">
-                <a href="${item.url}" class="detail">${item.title}</a>
+                <a href="${item.url}" class="detail">${item.id} - ${item.title}</a>
               </li>`;
   });
-  $('#result').empty().append('<ul>').find('ul').append(listItems);
+  $('#result').empty().append('<ul>').find('ul').append(listItems.sort());
 };
 
 const renderEdit = function (store) {
@@ -33,8 +33,20 @@ const renderDetail = function (store) {
   const el = $('#detail');
   const item = store.item;
   el.find('.title').text(item.title);
-  el.find('.content').text(item.content);
+  console.log(item.content);
+  if(item.content===undefined){
+    el.find('.content').html(item.content);
+  } else{
+    el.find('.content').html(item.content.replace(RegExp('\n','g'), '<br>'));
+  }
 };
+
+// const renderDetail = function (store) {
+//   const el = $('#detail');
+//   const item = store.item;
+//   el.find('.title').text(item.title);
+//   el.find('.content').text(item.content);
+// };
 
 const handleSearch = function (event) {
   event.preventDefault();

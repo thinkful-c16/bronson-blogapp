@@ -20,7 +20,9 @@
   "homepage": "https://github.com/cklanac/blog-app#readme",
   "dependencies": {
     "express": "^4.16.2",
+    "knex": "^0.14.1",
     "morgan": "^1.9.0",
-    "nodemon": "^1.12.1"
+    "nodemon": "^1.12.1",
+    "pg": "^7.4.0"
   }
 }
